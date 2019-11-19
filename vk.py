@@ -3,9 +3,8 @@ import os
 import requests
 
 
-def get_auth_params():
-    token = os.getenv('VK_TOKEN')
-    group_id = os.getenv('VK_GROUP_ID')
+def get_auth_params(token, group_id):
+
     version = 5.92
     params = {
         'access_token': token,
@@ -15,8 +14,8 @@ def get_auth_params():
     return params
 
 
-def post_image_and_text(image_path, text):
-    auth_params = get_auth_params()
+def post_image_and_text(image_path, text, token, group_id):
+    auth_params = get_auth_params(token, group_id)
     upload_photo_params = upload_photo(auth_params, image_path)
     photo_params = save_wall_photo(auth_params, upload_photo_params)
     photo_id = get_photo_id(photo_params['response'][0])

@@ -1,11 +1,7 @@
-import os
-
 import requests
 
 
-def post_image_and_text(image_path, text):
-    fb_group_id = os.getenv('FB_GROUP_ID')
-    fb_token = os.getenv('FB_TOKEN')
+def post_image_and_text(image_path, text, fb_token, fb_group_id):
     url = f'https://graph.facebook.com/v5.0/{fb_group_id}/photos/'
 
     params = {'caption': text, 'access_token': fb_token}
