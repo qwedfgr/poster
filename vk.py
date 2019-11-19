@@ -4,7 +4,6 @@ import requests
 
 
 def get_auth_params(token, group_id):
-
     version = 5.92
     params = {
         'access_token': token,
@@ -25,10 +24,12 @@ def post_image_and_text(image_path, text, token, group_id):
 def wall_post(auth_params, photo_id, comment):
     url = 'https://api.vk.com/method/wall.post'
     params = auth_params
-    params['attachments'] = photo_id
-    params['owner_id'] = '-{group_id}'.format(**params)
-    params["from_group"] = 1
-    params['message'] = comment
+    params.update({
+        'attachments': photo_id,
+        'owner_id': '-{group_id}'.format(**params),
+        'from_group': 1,
+        'message': comment
+    })
     response = requests.post(url=url, params=params)
     return response.json()
 
